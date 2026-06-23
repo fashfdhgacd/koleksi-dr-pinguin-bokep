@@ -5,141 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Koleksi Dr. Pinguin Bokep</title>
   <style>
-    /* Card Style */
-    .vg-wrap {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .vg-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    }
-    .vg-top {
-      padding: 10px 14px;
-      background: #f8fafc;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .vg-pill {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: #dbeafe;
-      color: #1e40af;
-    }
-    .vg-num {
-      font-size: 11px;
-      color: #64748b;
-      font-family: ui-monospace, monospace;
-      font-weight: 600;
-    }
-    .vg-title {
-      padding: 11px 14px;
-      font-size: 13px;
-      color: #475569;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      border-bottom: 1px solid #e2e8f0;
-      word-break: break-all;
-      min-height: 42px;
-      line-height: 1.4;
-    }
-    .vg-video {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #0f172a;
-      overflow: hidden;
-    }
-    .vg-video iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .vg-footer {
-      display: flex;
-      gap: 8px;
-      padding: 12px 14px;
-      background: #fafafa;
-    }
-    .vg-btn {
-      flex: 1;
-      font-size: 12px;
-      padding: 9px 0;
-      border-radius: 6px;
-      border: 1px solid #d1d5db;
-      background: #fff;
-      color: #374151;
-      font-family: ui-monospace, monospace;
-      font-weight: 600;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-    }
-    .vg-btn.protected {
-      background: #166534;
-      color: #fff;
-      border-color: #166534;
-    }
+    body { background: #f8fafc; font-family: system-ui; margin: 0; padding: 24px 16px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 24px; color: #166534; }
+    .controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    #search { flex: 1; min-width: 280px; padding: 12px 18px; border: 1px solid #cbd5e1; border-radius: 999px; }
+    #categoryFilter { padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 8px; }
+    .vg-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .vg-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .vg-top { padding: 10px 14px; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+    .vg-pill { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #dbeafe; color: #1e40af; }
+    .vg-num { font-size: 11px; color: #64748b; font-family: ui-monospace, monospace; font-weight: 600; }
+    .vg-title { padding: 11px 14px; font-size: 13px; color: #475569; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-bottom: 1px solid #e2e8f0; word-break: break-all; min-height: 42px; }
+    .vg-video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #0f172a; overflow: hidden; }
+    .vg-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .vg-footer { display: flex; gap: 8px; padding: 12px 14px; background: #fafafa; }
+    .vg-btn { flex: 1; font-size: 12px; padding: 9px 0; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; color: #374151; font-family: ui-monospace, monospace; font-weight: 600; text-align: center; text-decoration: none; display: block; }
+    .vg-btn.protected { background: #166534; color: #fff; border-color: #166534; }
+    #pagination { display: flex; justify-content: center; gap: 6px; margin-top: 30px; flex-wrap: wrap; }
+    .page-btn { padding: 8px 14px; border: 1px solid #d1d5db; background: white; border-radius: 6px; cursor: pointer; font-family: ui-monospace, monospace; }
+    .page-btn.active { background: #166534; color: white; border-color: #166534; }
   </style>
 </head>
-<body style="background:#f8fafc; padding:24px; font-family:system-ui;">
+<body>
 
-  <h1 style="text-align:center; margin-bottom:30px;">🐧 Koleksi Dr. Pinguin Bokep</h1>
+<div class="container">
+  <h1>🐧 Koleksi Dr. Pinguin Bokep</h1>
 
-  <div class="vg-wrap" id="gallery">
-    <!-- Video akan muncul di sini otomatis dari videos.json -->
+  <div class="controls">
+    <input type="text" id="search" placeholder="Cari judul video...">
+    <select id="categoryFilter">
+      <option value="">Semua Kategori</option>
+      <option value="ABG">ABG</option>
+      <option value="Jilbab">Jilbab</option>
+      <option value="Chindo">Chindo</option>
+      <option value="Live">Live</option>
+      <option value="Amatir">Amatir</option>
+      <option value="STW">STW</option>
+      <option value="Umum">Umum</option>
+    </select>
   </div>
 
-  <script>
-    async function loadGallery() {
-      try {
-        const res = await fetch('videos.json');
-        const videos = await res.json();
+  <div class="vg-wrap" id="gallery"></div>
+  <div id="pagination"></div>
+</div>
 
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
+<script>
+let allVideos = [];
+let currentPage = 1;
+const itemsPerPage = 20; // ← 20 video per halaman
 
-        videos.forEach((video, index) => {
-          const card = document.createElement('div');
-          card.className = 'vg-card';
+async function loadVideos() {
+  try {
+    const res = await fetch('videos.json');
+    allVideos = await res.json();
+    renderGallery();
+  } catch (err) {
+    document.getElementById('gallery').innerHTML = `<p style="text-align:center;color:red;">Gagal memuat videos.json</p>`;
+  }
+}
 
-          card.innerHTML = `
-            <div class="vg-top">
-              <span class="vg-pill">${video.platform || 'IndoAV'}</span>
-              <span class="vg-num">#${index + 1}</span>
-            </div>
-            <div class="vg-title">${video.title}</div>
-            <div class="vg-video">
-              <iframe src="${video.embed}" loading="lazy" allowfullscreen scrolling="no" 
-                allow="autoplay; encrypted-media; picture-in-picture"></iframe>
-            </div>
-            <div class="vg-footer">
-              <a class="vg-btn protected" href="${video.direct}" target="_blank">
-                Buka & Tonton Langsung
-              </a>
-            </div>
-          `;
-          gallery.appendChild(card);
-        });
+function renderGallery(filtered = null) {
+  const gallery = document.getElementById('gallery');
+  const pagination = document.getElementById('pagination');
+  gallery.innerHTML = '';
+  pagination.innerHTML = '';
 
-      } catch (error) {
-        document.getElementById('gallery').innerHTML = 
-          `<p style="text-align:center; color:#ef4444;">Gagal memuat videos.json</p>`;
-      }
+  let videos = filtered || allVideos;
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageVideos = videos.slice(start, start + itemsPerPage);
+
+  pageVideos.forEach((video, i) => {
+    const card = document.createElement('div');
+    card.className = 'vg-card';
+    card.innerHTML = `
+      <div class="vg-top">
+        <span class="vg-pill">${video.source || 'IndoAV'}</span>
+        <span class="vg-num">#${start + i + 1}</span>
+      </div>
+      <div class="vg-title">${video.title}</div>
+      <div class="vg-video">
+        <iframe src="${video.embed}" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="vg-footer">
+        <a class="vg-btn protected" href="${video.direct}" target="_blank">Buka & Tonton Langsung</a>
+      </div>
+    `;
+    gallery.appendChild(card);
+  });
+
+  // Pagination
+  if (totalPages > 1) {
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+      btn.onclick = () => { currentPage = i; renderGallery(filtered); };
+      pagination.appendChild(btn);
     }
+  }
+}
 
-    loadGallery();
-  </script>
+function setupFilters() {
+  const search = document.getElementById('search');
+  const cat = document.getElementById('categoryFilter');
+
+  function filter() {
+    const keyword = search.value.toLowerCase();
+    const category = cat.value;
+
+    let filtered = allVideos;
+
+    if (keyword) filtered = filtered.filter(v => v.title.toLowerCase().includes(keyword));
+    if (category) filtered = filtered.filter(v => v.category === category);
+
+    currentPage = 1;
+    renderGallery(filtered);
+  }
+
+  search.addEventListener('input', filter);
+  cat.addEventListener('change', filter);
+}
+
+loadVideos();
+setupFilters();
+</script>
 
 </body>
 </html>
