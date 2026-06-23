@@ -3,39 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koleksi Dr. Pinguin Bokep • Gallery</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Koleksi Dr. Pinguin Bokep</title>
+  <style>
+    /* Card Style */
+    .vg-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .vg-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    .vg-top {
+      padding: 10px 14px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .vg-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .vg-num {
+      font-size: 11px;
+      color: #64748b;
+      font-family: ui-monospace, monospace;
+      font-weight: 600;
+    }
+    .vg-title {
+      padding: 11px 14px;
+      font-size: 13px;
+      color: #475569;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      border-bottom: 1px solid #e2e8f0;
+      word-break: break-all;
+      min-height: 42px;
+      line-height: 1.4;
+    }
+    .vg-video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    .vg-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .vg-footer {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+    .vg-btn {
+      flex: 1;
+      font-size: 12px;
+      padding: 9px 0;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #374151;
+      font-family: ui-monospace, monospace;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .vg-btn.protected {
+      background: #166534;
+      color: #fff;
+      border-color: #166534;
+    }
+  </style>
 </head>
-<body>
+<body style="background:#f8fafc; padding:24px; font-family:system-ui;">
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="navbar-content">
-      <a href="#" class="logo">🐧 Koleksi Dr. Pinguin Bokep</a>
-      <div class="search-box">
-        <input type="text" id="search" placeholder="Cari judul video...">
-        <span id="total-count">0 video</span>
-      </div>
-    </div>
-  </nav>
+  <h1 style="text-align:center; margin-bottom:30px;">🐧 Koleksi Dr. Pinguin Bokep</h1>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Koleksi Dr. Pinguin Bokep</h1>
-    <p>Gallery video yang rapi. Tinggal tambah video dari converter kamu.</p>
+  <div class="vg-wrap" id="gallery">
+    <!-- Video akan muncul di sini otomatis dari videos.json -->
   </div>
 
-  <!-- GALLERY -->
-  <div class="container">
-    <div class="section-title">Semua Video</div>
+  <script>
+    async function loadGallery() {
+      try {
+        const res = await fetch('videos.json');
+        const videos = await res.json();
 
-    <div class="vg-wrap" id="gallery">
-      <!-- Video cards akan diisi di sini -->
-    </div>
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = '';
 
-    <div id="pagination"></div>
-  </div>
+        videos.forEach((video, index) => {
+          const card = document.createElement('div');
+          card.className = 'vg-card';
 
-  <script src="script.js"></script>
+          card.innerHTML = `
+            <div class="vg-top">
+              <span class="vg-pill">${video.platform || 'IndoAV'}</span>
+              <span class="vg-num">#${index + 1}</span>
+            </div>
+            <div class="vg-title">${video.title}</div>
+            <div class="vg-video">
+              <iframe src="${video.embed}" loading="lazy" allowfullscreen scrolling="no" 
+                allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="vg-footer">
+              <a class="vg-btn protected" href="${video.direct}" target="_blank">
+                Buka & Tonton Langsung
+              </a>
+            </div>
+          `;
+          gallery.appendChild(card);
+        });
+
+      } catch (error) {
+        document.getElementById('gallery').innerHTML = 
+          `<p style="text-align:center; color:#ef4444;">Gagal memuat videos.json</p>`;
+      }
+    }
+
+    loadGallery();
+  </script>
+
 </body>
 </html>
