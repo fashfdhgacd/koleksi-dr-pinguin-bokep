@@ -1,136 +1,548 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koleksi Dr. Pinguin Bokep</title>
-  <style>
-    body { background: #f8fafc; font-family: system-ui; margin: 0; padding: 24px 16px; }
-    .container { max-width: 1400px; margin: 0 auto; }
-    h1 { text-align: center; margin-bottom: 24px; color: #166534; }
-    .controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-    #search { flex: 1; min-width: 280px; padding: 12px 18px; border: 1px solid #cbd5e1; border-radius: 999px; }
-    #categoryFilter { padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 8px; }
-    .vg-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .vg-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-    .vg-top { padding: 10px 14px; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
-    .vg-pill { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #dbeafe; color: #1e40af; }
-    .vg-num { font-size: 11px; color: #64748b; font-family: ui-monospace, monospace; font-weight: 600; }
-    .vg-title { padding: 11px 14px; font-size: 13px; color: #475569; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-bottom: 1px solid #e2e8f0; word-break: break-all; min-height: 42px; }
-    .vg-video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #0f172a; overflow: hidden; }
-    .vg-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-    .vg-footer { display: flex; gap: 8px; padding: 12px 14px; background: #fafafa; }
-    .vg-btn { flex: 1; font-size: 12px; padding: 9px 0; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; color: #374151; font-family: ui-monospace, monospace; font-weight: 600; text-align: center; text-decoration: none; display: block; }
-    .vg-btn.protected { background: #166534; color: #fff; border-color: #166534; }
-    #pagination { display: flex; justify-content: center; gap: 6px; margin-top: 30px; flex-wrap: wrap; }
-    .page-btn { padding: 8px 14px; border: 1px solid #d1d5db; background: white; border-radius: 6px; cursor: pointer; font-family: ui-monospace, monospace; }
-    .page-btn.active { background: #166534; color: white; border-color: #166534; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Dr. Pinguin Bokep • M.S.B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .logo-font { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+        .video-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .video-card:hover { transform: translateY(-8px); }
+        .category-chip { transition: all 0.2s ease; }
+        .category-chip.active { background-color: #00D4FF; color: #000; font-weight: 600; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+    </style>
 </head>
-<body>
+<body class="bg-zinc-950 text-zinc-200">
 
-<div class="container">
-  <h1>🐧 Koleksi Dr. Pinguin Bokep</h1>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800">
+        <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-cyan-400 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-penguin text-zinc-950 text-3xl"></i>
+                </div>
+                <div>
+                    <span class="logo-font text-2xl font-semibold tracking-tighter">Dr. Pinguin</span>
+                    <span class="text-xs text-zinc-500 block -mt-1">Bokep Collection</span>
+                </div>
+            </div>
 
-  <div class="controls">
-    <input type="text" id="search" placeholder="Cari judul video...">
-    <select id="categoryFilter">
-      <option value="">Semua Kategori</option>
-      <option value="ABG">ABG</option>
-      <option value="Jilbab">Jilbab</option>
-      <option value="Chindo">Chindo</option>
-      <option value="Live">Live</option>
-      <option value="Amatir">Amatir</option>
-      <option value="STW">STW</option>
-      <option value="Umum">Umum</option>
-    </select>
-  </div>
+            <button onclick="showAddVideoModal()"
+                    class="flex items-center gap-x-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl text-sm font-medium transition-colors">
+                <i class="fa-solid fa-plus"></i>
+                <span class="hidden md:inline">Tambah Video</span>
+            </button>
+        </div>
+    </nav>
 
-  <div class="vg-wrap" id="gallery"></div>
-  <div id="pagination"></div>
-</div>
+    <!-- Hero -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-8 pb-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4">
+            <div>
+                <h1 class="text-4xl font-bold tracking-tighter">Koleksi Dr. Pinguin Bokep</h1>
+                <p class="text-zinc-400 mt-2">Ribuan video premium • Update setiap hari</p>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-2xl text-sm flex items-center gap-x-2">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span id="total-videos">1.284 video</span>
+            </div>
+        </div>
+    </div>
 
-<script>
-let allVideos = [];
-let currentPage = 1;
-const itemsPerPage = 20; // ← 20 video per halaman
+    <!-- Controls -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-6">
+        <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            <div class="w-full lg:w-96">
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Cari judul video..." 
+                           class="w-full bg-zinc-900 border border-zinc-700 focus:border-cyan-400 pl-11 py-3.5 rounded-2xl text-sm outline-none">
+                    <i class="fa-solid fa-search absolute left-4 top-4 text-zinc-500"></i>
+                </div>
+            </div>
 
-async function loadVideos() {
-  try {
-    const res = await fetch('videos.json');
-    allVideos = await res.json();
-    renderGallery();
-  } catch (err) {
-    document.getElementById('gallery').innerHTML = `<p style="text-align:center;color:red;">Gagal memuat videos.json</p>`;
-  }
-}
+            <select id="sort-select" class="bg-zinc-900 border border-zinc-700 text-sm rounded-2xl px-4 py-3.5 outline-none">
+                <option value="newest">Terbaru</option>
+                <option value="oldest">Terlama</option>
+                <option value="title-asc">Judul A-Z</option>
+                <option value="duration">Durasi Terpanjang</option>
+            </select>
+        </div>
 
-function renderGallery(filtered = null) {
-  const gallery = document.getElementById('gallery');
-  const pagination = document.getElementById('pagination');
-  gallery.innerHTML = '';
-  pagination.innerHTML = '';
+        <div class="mt-5 flex flex-wrap gap-2" id="category-filters"></div>
+    </div>
 
-  let videos = filtered || allVideos;
-  const totalPages = Math.ceil(videos.length / itemsPerPage);
-  const start = (currentPage - 1) * itemsPerPage;
-  const pageVideos = videos.slice(start, start + itemsPerPage);
+    <!-- Results -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-4 flex justify-between text-sm">
+        <div class="text-zinc-400">
+            Menampilkan <span id="showing-count" class="font-semibold text-white">0</span> dari 
+            <span id="total-count" class="font-semibold text-white">0</span> video
+        </div>
+        <div id="active-filter-info" class="hidden text-xs px-3 py-1 bg-zinc-900 rounded-full border border-zinc-700"></div>
+    </div>
 
-  pageVideos.forEach((video, i) => {
-    const card = document.createElement('div');
-    card.className = 'vg-card';
-    card.innerHTML = `
-      <div class="vg-top">
-        <span class="vg-pill">${video.source || 'IndoAV'}</span>
-        <span class="vg-num">#${start + i + 1}</span>
-      </div>
-      <div class="vg-title">${video.title}</div>
-      <div class="vg-video">
-        <iframe src="${video.embed}" loading="lazy" allowfullscreen></iframe>
-      </div>
-      <div class="vg-footer">
-        <a class="vg-btn protected" href="${video.direct}" target="_blank">Buka & Tonton Langsung</a>
-      </div>
-    `;
-    gallery.appendChild(card);
-  });
+    <!-- Video Grid -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-10">
+        <div id="video-grid" class="video-grid"></div>
+        <div id="empty-state" class="hidden text-center py-16">
+            <i class="fa-solid fa-search text-5xl text-zinc-700 mb-4"></i>
+            <h3 class="text-xl font-semibold">Tidak ada video ditemukan</h3>
+        </div>
+    </div>
 
-  // Pagination
-  if (totalPages > 1) {
-    for (let i = 1; i <= totalPages; i++) {
-      const btn = document.createElement('button');
-      btn.textContent = i;
-      btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-      btn.onclick = () => { currentPage = i; renderGallery(filtered); };
-      pagination.appendChild(btn);
-    }
-  }
-}
+    <!-- Pagination -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-16">
+        <div id="pagination" class="flex justify-center gap-x-2"></div>
+    </div>
 
-function setupFilters() {
-  const search = document.getElementById('search');
-  const cat = document.getElementById('categoryFilter');
+    <!-- ==================== VIDEO MODAL ==================== -->
+    <div id="video-modal" onclick="if (event.target.id === 'video-modal') closeModal()" 
+         class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 w-full max-w-5xl rounded-3xl overflow-hidden border border-zinc-700">
+            
+            <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-700">
+                <div>
+                    <h3 id="modal-title" class="font-semibold text-lg"></h3>
+                    <p id="modal-category" class="text-sm text-cyan-400"></p>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 flex items-center justify-center hover:bg-zinc-800 rounded-2xl">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
 
-  function filter() {
-    const keyword = search.value.toLowerCase();
-    const category = cat.value;
+            <div class="aspect-video bg-black">
+                <iframe id="modal-iframe" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+            </div>
 
-    let filtered = allVideos;
+            <div class="px-6 py-4 flex items-center justify-between bg-zinc-950">
+                <div class="flex items-center gap-x-2 text-sm text-zinc-400">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="modal-duration"></span>
+                </div>
+                
+                <button onclick="shareToWhatsApp()" 
+                        class="flex items-center gap-x-2 px-5 py-2.5 text-sm bg-green-600 hover:bg-green-500 rounded-2xl text-white font-medium">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Share ke WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    if (keyword) filtered = filtered.filter(v => v.title.toLowerCase().includes(keyword));
-    if (category) filtered = filtered.filter(v => v.category === category);
+    <!-- ==================== ADD VIDEO MODAL (UPDATED) ==================== -->
+    <div id="add-modal" onclick="if (event.target.id === 'add-modal') hideAddVideoModal()" 
+         class="hidden fixed inset-0 bg-black/80 z-[110] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-zinc-900 w-full max-w-2xl rounded-3xl border border-zinc-700 overflow-hidden">
+            
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-zinc-700 flex justify-between items-center">
+                <h3 class="font-semibold text-xl">Tambah Video Baru</h3>
+                <button onclick="hideAddVideoModal()" class="text-zinc-400 hover:text-white text-xl">×</button>
+            </div>
 
-    currentPage = 1;
-    renderGallery(filtered);
-  }
+            <!-- Tabs -->
+            <div class="flex border-b border-zinc-700">
+                <button onclick="switchAddMode('single')" id="tab-single"
+                        class="flex-1 py-3 text-sm font-medium border-b-2 border-cyan-400 text-cyan-400">Single Add</button>
+                <button onclick="switchAddMode('bulk')" id="tab-bulk"
+                        class="flex-1 py-3 text-sm font-medium text-zinc-400 hover:text-white">Bulk Paste</button>
+            </div>
 
-  search.addEventListener('input', filter);
-  cat.addEventListener('change', filter);
-}
+            <!-- SINGLE FORM -->
+            <div id="single-form" class="p-6 space-y-4">
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">Judul Video</label>
+                    <input id="new-title" type="text" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm" placeholder="Mahasiswi Jilbab Main di Kost">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-zinc-400 block mb-1.5">Kategori</label>
+                        <input id="new-category" type="text" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm" placeholder="Jilbab">
+                    </div>
+                    <div>
+                        <label class="text-xs text-zinc-400 block mb-1.5">Durasi</label>
+                        <input id="new-duration" type="text" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm" placeholder="14:32">
+                    </div>
+                </div>
 
-loadVideos();
-setupFilters();
-</script>
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">Embed URL (iframe src)</label>
+                    <input id="new-embed" type="text" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm" 
+                           placeholder="https://tv1.indoav.app/embed/xxxx">
+                </div>
+            </div>
 
+            <!-- BULK FORM -->
+            <div id="bulk-form" class="hidden p-6">
+                <div class="mb-3">
+                    <label class="text-xs text-zinc-400 block mb-1.5">Paste banyak video sekaligus</label>
+                    <textarea id="bulk-textarea" rows="8" 
+                              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm font-mono"
+                              placeholder="Judul Video | Kategori | Durasi | Embed URL&#10;Mahasiswi Jilbab | Jilbab | 14:32 | https://tv1.indoav.app/embed/abc123&#10;Ibu Rumah Tangga | Ibu Rumah Tangga | 22:15 | https://tv1.indoav.app/embed/def456"></textarea>
+                </div>
+                <p class="text-[11px] text-zinc-500">Format: <span class="font-mono">Judul | Kategori | Durasi | Embed URL</span> (satu baris = satu video)</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 bg-zinc-950 flex gap-3 border-t border-zinc-700">
+                <button onclick="hideAddVideoModal()" 
+                        class="flex-1 py-3 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition-colors">Batal</button>
+                
+                <button onclick="addSingleVideo()" id="btn-single"
+                        class="flex-1 py-3 bg-cyan-400 hover:bg-cyan-300 text-black font-semibold rounded-2xl">Tambahkan Video</button>
+                
+                <button onclick="parseBulkVideos()" id="btn-bulk"
+                        class="hidden flex-1 py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-2xl">Parse & Tambahkan Semua</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DATA ====================
+        let videos = [
+            { id: 1, title: "Mahasiswi Jilbab Cantik Main di Kost", category: "Jilbab", embedUrl: "https://www.youtube.com/embed/dQw4w9wgccc", thumbnail: "https://picsum.photos/id/1011/400/225", duration: "14:32", added: "2026-06-28" },
+            { id: 2, title: "Ibu Rumah Tangga Kesepian di Rumah", category: "Ibu Rumah Tangga", embedUrl: "https://www.youtube.com/embed/dQw4w9wgccc", thumbnail: "https://picsum.photos/id/1005/400/225", duration: "22:15", added: "2026-06-27" },
+            { id: 3, title: "Office Lady Lembur Malam Hari", category: "Office", embedUrl: "https://www.youtube.com/embed/dQw4w9wgccc", thumbnail: "https://picsum.photos/id/106/400/225", duration: "18:47", added: "2026-06-27" },
+            { id: 4, title: "Lesbian Couple Romantis di Apartemen", category: "Lesbian", embedUrl: "https://www.youtube.com/embed/dQw4w9wgccc", thumbnail: "https://picsum.photos/id/201/400/225", duration: "31:20", added: "2026-06-26" },
+            { id: 5, title: "Mahasiswi Hijab Praktikum di Lab", category: "Hijab", embedUrl: "https://www.youtube.com/embed/dQw4w9wgccc", thumbnail: "https://picsum.photos/id/29/400/225", duration: "12:05", added: "2026-06-26" }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 12;
+        let activeCategory = 'all';
+        let searchTerm = '';
+        let currentSort = 'newest';
+        let currentVideo = null;
+        let currentAddMode = 'single';
+
+        // ==================== HELPER ====================
+        function getUniqueCategories() {
+            return [...new Set(videos.map(v => v.category))].sort();
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+        }
+
+        function debounce(func, delay) {
+            let timeout;
+            return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func(...args), delay); };
+        }
+
+        // ==================== FILTER & SORT ====================
+        function getFilteredAndSortedVideos() {
+            let result = [...videos];
+
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                result = result.filter(v => v.title.toLowerCase().includes(term) || v.category.toLowerCase().includes(term));
+            }
+            if (activeCategory !== 'all') {
+                result = result.filter(v => v.category === activeCategory);
+            }
+
+            switch (currentSort) {
+                case 'newest': result.sort((a, b) => new Date(b.added) - new Date(a.added)); break;
+                case 'oldest': result.sort((a, b) => new Date(a.added) - new Date(b.added)); break;
+                case 'title-asc': result.sort((a, b) => a.title.localeCompare(b.title)); break;
+                case 'duration':
+                    result.sort((a, b) => {
+                        const getSec = d => { const [m, s] = d.split(':'); return (+m * 60) + (+s); };
+                        return getSec(b.duration) - getSec(a.duration);
+                    });
+                    break;
+            }
+            return result;
+        }
+
+        // ==================== RENDER ====================
+        function renderAll() {
+            const filtered = getFilteredAndSortedVideos();
+            renderVideoGrid(filtered);
+            renderPagination(filtered.length);
+            updateStats(filtered.length);
+            renderCategoryFilters();
+        }
+
+        function renderVideoGrid(filteredVideos) {
+            const grid = document.getElementById('video-grid');
+            const empty = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if (filteredVideos.length === 0) {
+                empty.classList.remove('hidden');
+                grid.classList.add('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+            grid.classList.remove('hidden');
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const pageVideos = filteredVideos.slice(start, start + itemsPerPage);
+
+            pageVideos.forEach(video => {
+                const card = document.createElement('div');
+                card.className = `video-card bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden cursor-pointer group`;
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${video.thumbnail}" class="w-full aspect-video object-cover group-hover:scale-105 transition-transform">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-12 h-12 bg-white/90 rounded-2xl flex items-center justify-center group-hover:bg-cyan-400 transition-colors">
+                                <i class="fa-solid fa-play text-black ml-0.5"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-black/80 text-xs px-2 py-0.5 rounded-lg font-mono">${video.duration}</div>
+                        <div class="absolute top-3 left-3"><span class="px-3 py-1 text-xs bg-black/70 rounded-2xl border border-white/10">${video.category}</span></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm line-clamp-2 mb-2 group-hover:text-cyan-400">${video.title}</h3>
+                        <div class="flex justify-between text-xs text-zinc-400">
+                            <span>${formatDate(video.added)}</span>
+                            <span><i class="fa-solid fa-eye text-[10px]"></i> 12.4k</span>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => openVideoModal(video);
+                grid.appendChild(card);
+            });
+        }
+
+        function renderCategoryFilters() {
+            const container = document.getElementById('category-filters');
+            container.innerHTML = '';
+
+            const all = document.createElement('button');
+            all.className = `category-chip px-4 py-1.5 text-sm rounded-2xl border ${activeCategory === 'all' ? 'bg-cyan-400 text-black border-cyan-400' : 'bg-zinc-900 border-zinc-700'}`;
+            all.textContent = 'All';
+            all.onclick = () => { activeCategory = 'all'; currentPage = 1; renderAll(); };
+            container.appendChild(all);
+
+            getUniqueCategories().forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `category-chip px-4 py-1.5 text-sm rounded-2xl border ${activeCategory === cat ? 'bg-cyan-400 text-black border-cyan-400' : 'bg-zinc-900 border-zinc-700'}`;
+                btn.textContent = cat;
+                btn.onclick = () => { activeCategory = cat; currentPage = 1; renderAll(); };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderPagination(total) {
+            const container = document.getElementById('pagination');
+            container.innerHTML = '';
+            const totalPages = Math.ceil(total / itemsPerPage);
+            if (totalPages <= 1) return;
+
+            // Prev
+            const prev = document.createElement('button');
+            prev.className = `px-4 py-2 rounded-2xl border text-sm ${currentPage === 1 ? 'opacity-40 border-zinc-700' : 'border-zinc-700 hover:bg-zinc-800'}`;
+            prev.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
+            prev.onclick = () => { if (currentPage > 1) { currentPage--; renderAll(); } };
+            container.appendChild(prev);
+
+            // Pages
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    const btn = document.createElement('button');
+                    btn.className = `w-10 h-10 rounded-2xl text-sm font-medium ${i === currentPage ? 'bg-cyan-400 text-black' : 'border border-zinc-700 hover:bg-zinc-800'}`;
+                    btn.textContent = i;
+                    btn.onclick = () => { currentPage = i; renderAll(); };
+                    container.appendChild(btn);
+                }
+            }
+
+            // Next
+            const next = document.createElement('button');
+            next.className = `px-4 py-2 rounded-2xl border text-sm ${currentPage === totalPages ? 'opacity-40 border-zinc-700' : 'border-zinc-700 hover:bg-zinc-800'}`;
+            next.innerHTML = `<i class="fa-solid fa-chevron-right"></i>`;
+            next.onclick = () => { if (currentPage < totalPages) { currentPage++; renderAll(); } };
+            container.appendChild(next);
+        }
+
+        function updateStats(showing) {
+            document.getElementById('showing-count').textContent = showing;
+            document.getElementById('total-count').textContent = videos.length;
+        }
+
+        // ==================== MODAL VIDEO ====================
+        function openVideoModal(video) {
+            currentVideo = video;
+            document.getElementById('modal-title').textContent = video.title;
+            document.getElementById('modal-category').textContent = video.category;
+            document.getElementById('modal-duration').textContent = video.duration;
+            document.getElementById('modal-iframe').src = video.embedUrl;
+            document.getElementById('video-modal').classList.remove('hidden');
+            document.getElementById('video-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-iframe').src = '';
+            document.getElementById('video-modal').classList.remove('flex');
+            document.getElementById('video-modal').classList.add('hidden');
+        }
+
+        function shareToWhatsApp() {
+            if (!currentVideo) return;
+            const text = `Tonton video ini di Koleksi Dr. Pinguin Bokep:\n\n${currentVideo.title}\n\nhttps://koleksi-dr-pinguin-bokep.vercel.app`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ==================== ADD VIDEO (SINGLE + BULK) ====================
+        function showAddVideoModal() {
+            document.getElementById('add-modal').classList.remove('hidden');
+            document.getElementById('add-modal').classList.add('flex');
+            switchAddMode('single'); // default
+        }
+
+        function hideAddVideoModal() {
+            document.getElementById('add-modal').classList.remove('flex');
+            document.getElementById('add-modal').classList.add('hidden');
+            // reset forms
+            document.getElementById('new-title').value = '';
+            document.getElementById('new-category').value = '';
+            document.getElementById('new-duration').value = '';
+            document.getElementById('new-embed').value = '';
+            document.getElementById('bulk-textarea').value = '';
+        }
+
+        function switchAddMode(mode) {
+            currentAddMode = mode;
+            const single = document.getElementById('single-form');
+            const bulk = document.getElementById('bulk-form');
+            const btnSingle = document.getElementById('btn-single');
+            const btnBulk = document.getElementById('btn-bulk');
+            const tabSingle = document.getElementById('tab-single');
+            const tabBulk = document.getElementById('tab-bulk');
+
+            if (mode === 'single') {
+                single.classList.remove('hidden');
+                bulk.classList.add('hidden');
+                btnSingle.classList.remove('hidden');
+                btnBulk.classList.add('hidden');
+                tabSingle.classList.add('border-b-2', 'border-cyan-400', 'text-cyan-400');
+                tabBulk.classList.remove('border-b-2', 'border-cyan-400', 'text-cyan-400');
+            } else {
+                single.classList.add('hidden');
+                bulk.classList.remove('hidden');
+                btnSingle.classList.add('hidden');
+                btnBulk.classList.remove('hidden');
+                tabBulk.classList.add('border-b-2', 'border-cyan-400', 'text-cyan-400');
+                tabSingle.classList.remove('border-b-2', 'border-cyan-400', 'text-cyan-400');
+            }
+        }
+
+        function addSingleVideo() {
+            const title = document.getElementById('new-title').value.trim();
+            const category = document.getElementById('new-category').value.trim();
+            const duration = document.getElementById('new-duration').value.trim();
+            const embedUrl = document.getElementById('new-embed').value.trim();
+
+            if (!title || !category || !embedUrl) {
+                alert('Judul, Kategori, dan Embed URL wajib diisi!');
+                return;
+            }
+
+            videos.unshift({
+                id: Date.now(),
+                title,
+                category,
+                embedUrl,
+                thumbnail: `https://picsum.photos/id/${Math.floor(Math.random()*200)}/400/225`,
+                duration: duration || "10:00",
+                added: new Date().toISOString().split('T')[0]
+            });
+
+            hideAddVideoModal();
+            currentPage = 1;
+            renderAll();
+        }
+
+        function parseBulkVideos() {
+            const textarea = document.getElementById('bulk-textarea').value.trim();
+            if (!textarea) {
+                alert('Textarea masih kosong!');
+                return;
+            }
+
+            const lines = textarea.split('\n').filter(line => line.trim() !== '');
+            let addedCount = 0;
+            let failed = 0;
+
+            lines.forEach(line => {
+                const parts = line.split('|').map(p => p.trim());
+                if (parts.length < 4) {
+                    failed++;
+                    return;
+                }
+
+                const [title, category, duration, embedUrl] = parts;
+
+                if (!title || !category || !embedUrl) {
+                    failed++;
+                    return;
+                }
+
+                videos.unshift({
+                    id: Date.now() + addedCount,
+                    title,
+                    category,
+                    embedUrl,
+                    thumbnail: `https://picsum.photos/id/${Math.floor(Math.random()*200)}/400/225`,
+                    duration: duration || "10:00",
+                    added: new Date().toISOString().split('T')[0]
+                });
+                addedCount++;
+            });
+
+            hideAddVideoModal();
+            currentPage = 1;
+            renderAll();
+
+            alert(`Berhasil menambahkan ${addedCount} video.\n${failed > 0 ? failed + ' baris gagal diproses.' : ''}`);
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        function setupEventListeners() {
+            const search = document.getElementById('search-input');
+            search.addEventListener('input', debounce(e => {
+                searchTerm = e.target.value;
+                currentPage = 1;
+                renderAll();
+            }, 300));
+
+            document.getElementById('sort-select').addEventListener('change', e => {
+                currentSort = e.target.value;
+                currentPage = 1;
+                renderAll();
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    const videoModal = document.getElementById('video-modal');
+                    const addModal = document.getElementById('add-modal');
+                    if (!videoModal.classList.contains('hidden')) closeModal();
+                    else if (!addModal.classList.contains('hidden')) hideAddVideoModal();
+                }
+            });
+        }
+
+        // ==================== INIT ====================
+        function init() {
+            document.getElementById('total-videos').innerHTML = `${videos.length.toLocaleString('id-ID')} video`;
+            setupEventListeners();
+            renderAll();
+
+            if (window.innerWidth > 768) {
+                setTimeout(() => document.getElementById('search-input').focus(), 800);
+            }
+        }
+
+        window.onload = init;
+    </script>
 </body>
 </html>
