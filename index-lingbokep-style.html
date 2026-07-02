@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Harimau Bokep • Koleksi Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .video-card {
+            transition: all 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+        }
+        .thumbnail-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .thumbnail-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <span class="text-4xl font-black tracking-tighter">Dr. Harimau</span>
+                <span class="text-4xl font-black tracking-tighter text-rose-500">Bokep</span>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <input id="search" type="text" placeholder="Cari video..." 
+                       class="bg-zinc-900 border border-zinc-700 px-5 py-3 rounded-3xl w-80 text-sm">
+                <a href="admin.html" class="px-5 py-3 bg-zinc-800 rounded-3xl text-sm">Admin</a>
+            </div>
+        </div>
+
+        <!-- Grid Mirip Lingbokep -->
+        <div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+    </div>
+
+    <script>
+        let videos = [];
+
+        async function loadVideos() {
+            try {
+                const res = await fetch('videos.json');
+                videos = await res.json();
+                renderGrid();
+            } catch(e) {
+                console.error("Gagal load videos.json");
+            }
+        }
+
+        function renderGrid(filteredVideos = null) {
+            const grid = document.getElementById('grid');
+            const data = filteredVideos || videos;
+
+            grid.innerHTML = data.map(v => {
+                // Buat slug sederhana
+                const slug = v.title.toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .substring(0, 60);
+
+                return `
+                    <a href="video.html?id=${v.id}&slug=${slug}" class="video-card block bg-zinc-900 border border-zinc-700 rounded-2xl overflow-hidden">
+                        <!-- Thumbnail Area -->
+                        <div class="thumbnail-container aspect-video bg-zinc-800 relative flex items-center justify-center">
+                            ${v.thumbnail 
+                                ? `<img src="${v.thumbnail}" class="w-full h-full object-cover">` 
+                                : `<div class="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center">
+                                    <i class="fa-solid fa-play text-5xl text-white/30"></i>
+                                  </div>`}
+                            
+                            <!-- Category badge -->
+                            <div class="absolute top-3 left-3">
+                                <span class="px-3 py-1 text-xs font-bold bg-black/70 text-white rounded-full">
+                                    ${v.category || 'Umum'}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="p-4">
+                            <h3 class="font-semibold text-sm leading-tight line-clamp-2 mb-2">
+                                ${v.title}
+                            </h3>
+                            <div class="flex items-center justify-between text-xs text-zinc-400">
+                                <span>${v.source || 'IndoAV'}</span>
+                                <span class="flex items-center gap-x-1">
+                                    <i class="fa-solid fa-eye text-xs"></i> 
+                                    <span>12k</span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // Search
+        document.getElementById('search').addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            const filtered = videos.filter(v => v.title.toLowerCase().includes(term));
+            renderGrid(filtered);
+        });
+
+        loadVideos();
+    </script>
+</body>
+</html>
