@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Harimau Bokep • Koleksi Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@600;700&amp;display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .logo-font { font-family: 'Poppins', system_ui, sans-serif; font-weight: 700; letter-spacing: -0.04em; }
+        
+        .video-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
+            background: #18181b; 
+        }
+        .video-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); 
+            border-color: #e11d48; 
+        }
+        
+        .video-wrapper { 
+            aspect-ratio: 16 / 9; 
+            background: #0a0a0a; 
+            overflow: hidden; 
+            position: relative; 
+        }
+        
+        .play-overlay {
+            transition: all 0.2s ease;
+        }
+        .video-card:hover .play-overlay {
+            background: rgba(225, 29, 72, 0.15);
+        }
+        .play-button {
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+        }
+        .video-card:hover .play-button {
+            transform: scale(1.1);
+            background: #e11d48;
+            color: white;
+        }
+        
+        .exclusive-badge { 
+            background: linear-gradient(to right, #e11d48, #be123c); 
+            box-shadow: 0 0 15px rgba(225, 29, 72, 0.4); 
+        }
+        .section-header { 
+            font-size: 2.1rem; 
+            line-height: 1.1; 
+            font-weight: 700; 
+            letter-spacing: -0.04em; 
+        }
+        
+        .modal-iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .modal-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+    
+    <!-- Top Bar -->
+    <div class="bg-zinc-900 border-b border-zinc-800 py-2.5">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-x-2 text-emerald-400">
+                <i class="fa-solid fa-check-circle"></i>
+                <span class="font-medium">10.240+ Video • Update Harian</span>
+            </div>
+            <div class="hidden md:block text-zinc-400">Optimized untuk HP, Tablet, Laptop &amp; PC</div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 pt-8 pb-12">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+            <div>
+                <div class="flex items-center gap-x-3 mb-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-rose-600 to-red-700 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-play text-white text-2xl ml-0.5"></i>
+                    </div>
+                    <div>
+                        <span class="logo-font text-5xl font-black tracking-tighter">Dr. Harimau</span>
+                        <span class="logo-font text-5xl font-black tracking-tighter text-rose-500">Bokep</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-3">
+                    <h1 class="section-header">Koleksi Premium</h1>
+                    <div class="exclusive-badge text-white text-xs font-bold px-5 py-1.5 rounded-3xl flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>EXCLUSIVE</span>
+                    </div>
+                </div>
+                <p class="text-xl text-zinc-400 mt-1">Collection Dr. Harimau Bokep, S. M. Sc.</p>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-3 flex items-center gap-x-4">
+                <div class="text-center">
+                    <div id="total" class="font-bold text-3xl text-rose-400">0</div>
+                    <div class="text-[10px] text-zinc-400 -mt-1">VIDEO</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex flex-col lg:flex-row gap-4 mb-8">
+            <div class="flex-1 relative">
+                <i class="fa-solid fa-search absolute left-5 top-[17px] text-zinc-500"></i>
+                <input id="search" type="text" placeholder="Cari judul video..." 
+                       class="w-full bg-zinc-900 border border-zinc-700 focus:border-rose-500 rounded-3xl pl-12 pr-6 py-4 text-base outline-none">
+            </div>
+            <select id="sort" class="bg-zinc-900 border border-zinc-700 focus:border-rose-500 rounded-3xl px-6 py-4 text-base">
+                <option value="newest">Terbaru</option>
+                <option value="oldest">Terlama</option>
+                <option value="az">A - Z</option>
+                <option value="za">Z - A</option>
+            </select>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-8 max-w-xs">
+            <label class="block text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-2 px-1">KATEGORI</label>
+            <select id="category-select" class="w-full bg-zinc-900 border border-zinc-700 focus:border-rose-500 rounded-3xl px-5 py-4 text-base"></select>
+        </div>
+
+        <!-- Grid -->
+        <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+
+        <!-- Pagination -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-10 gap-4 text-sm text-zinc-400">
+            <div id="pagination-info"></div>
+            <div class="flex gap-2 flex-wrap" id="pagination-controls"></div>
+        </div>
+    </div>
+
+    <!-- Modal Player (Unified for ALL devices) -->
+    <div id="video-modal" onclick="if (event.target.id === 'video-modal') closeModal()" 
+         class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="w-full max-w-[1100px] bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-700 shadow-2xl">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 flex items-center justify-between bg-zinc-950 border-b border-zinc-700">
+                <h3 id="modal-title" class="font-semibold text-lg pr-8 line-clamp-1"></h3>
+                <button onclick="closeModal()" 
+                        class="w-10 h-10 flex items-center justify-center text-3xl text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl transition-colors">×</button>
+            </div>
+            
+            <!-- Video Player -->
+            <div class="p-3 bg-black">
+                <div class="modal-iframe-container">
+                    <iframe id="modal-iframe" class="absolute top-0 left-0 w-full h-full" 
+                            frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+                </div>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 flex flex-col sm:flex-row justify-end gap-3 bg-zinc-900 border-t border-zinc-700">
+                <a id="modal-direct" target="_blank" 
+                   class="px-6 h-11 flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-2xl text-sm font-semibold transition-colors">
+                    <i class="fas fa-external-link-alt mr-2"></i> 
+                    <span>Buka di Tab Baru</span>
+                </a>
+                <button onclick="closeModal()" 
+                        class="px-6 h-11 flex items-center justify-center bg-zinc-700 hover:bg-zinc-600 active:bg-zinc-500 rounded-2xl text-sm font-medium transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let videos = [];
+        let activeCategory = 'all';
+        let currentPage = 1;
+        const perPage = 16;
+
+        async function loadVideos() {
+            try {
+                const res = await fetch('videos.json');
+                videos = await res.json();
+                videos.forEach(v => { if (v.title) v.title = v.title.replace(/^[\u25B6\uFE0F\s]*/, '').trim(); });
+                document.getElementById('total').textContent = videos.length;
+                setupCategoryDropdown();
+                render();
+            } catch(err) {
+                document.getElementById('grid').innerHTML = `
+                    <div class="col-span-full py-16 text-center text-zinc-400">
+                        <i class="fa-solid fa-exclamation-triangle text-4xl mb-4 block"></i>
+                        Gagal memuat videos.json<br>
+                        <span class="text-xs">Pastikan file videos.json ada di folder yang sama</span>
+                    </div>`;
+            }
+        }
+
+        function setupCategoryDropdown() {
+            const select = document.getElementById('category-select');
+            const categories = [...new Set(videos.map(v => v.category).filter(Boolean))].sort();
+            select.innerHTML = `<option value="all">Semua Kategori</option>`;
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat; 
+                opt.textContent = cat;
+                select.appendChild(opt);
+            });
+            select.onchange = () => { 
+                activeCategory = select.value; 
+                currentPage = 1; 
+                render(); 
+            };
+        }
+
+        function render() {
+            const grid = document.getElementById('grid');
+            const searchTerm = document.getElementById('search').value.toLowerCase().trim();
+            const sortMode = document.getElementById('sort').value;
+
+            let filtered = videos.filter(v => {
+                const matchSearch = !searchTerm || v.title.toLowerCase().includes(searchTerm);
+                const matchCat = activeCategory === 'all' || v.category === activeCategory;
+                return matchSearch && matchCat;
+            });
+
+            if (sortMode === 'newest') filtered.sort((a,b) => (b.id||0)-(a.id||0));
+            else if (sortMode === 'oldest') filtered.sort((a,b) => (a.id||0)-(b.id||0));
+            else if (sortMode === 'az') filtered.sort((a,b) => (a.title||'').localeCompare(b.title||''));
+            else if (sortMode === 'za') filtered.sort((a,b) => (b.title||'').localeCompare(a.title||''));
+
+            const totalPages = Math.ceil(filtered.length / perPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            const start = (currentPage - 1) * perPage;
+            const pageVideos = filtered.slice(start, start + perPage);
+
+            grid.innerHTML = pageVideos.map((v, i) => {
+                const globalNum = start + i + 1;
+
+                // Unified card design for ALL devices (HP, Tablet, Laptop, Desktop)
+                return `
+                    <div class="video-card border border-zinc-700 rounded-3xl overflow-hidden cursor-pointer group" 
+                         onclick="openModal(${v.id})">
+                        
+                        <!-- Header -->
+                        <div class="px-4 pt-3.5 pb-2 flex justify-between items-center bg-zinc-900/70">
+                            <span class="px-3.5 py-1 text-xs font-bold rounded-2xl bg-rose-600 text-white">
+                                ${v.category || 'Umum'}
+                            </span>
+                            <span class="text-[10px] text-zinc-400">#${globalNum}</span>
+                        </div>
+                        
+                        <!-- Play Area (replaces inline iframe) -->
+                        <div class="video-wrapper flex items-center justify-center bg-zinc-950 relative play-overlay">
+                            <div class="play-button w-16 h-16 bg-white/95 rounded-2xl flex items-center justify-center shadow-xl">
+                                <i class="fa-solid fa-play text-zinc-900 text-3xl ml-1"></i>
+                            </div>
+                            
+                            <!-- Subtle hint -->
+                            <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[10px] px-2.5 py-0.5 rounded-xl font-medium">
+                                TONTON
+                            </div>
+                        </div>
+                        
+                        <!-- Title -->
+                        <div class="px-4 py-4">
+                            <div class="text-sm font-semibold line-clamp-2 leading-snug">${v.title}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updatePagination(filtered.length, totalPages);
+        }
+
+        function updatePagination(total, totalPages) {
+            const info = document.getElementById('pagination-info');
+            const controls = document.getElementById('pagination-controls');
+            
+            info.innerHTML = `Menampilkan <span class="font-semibold text-white">${total}</span> video`;
+            controls.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = `px-4 py-2 text-sm rounded-2xl border transition-colors ${i === currentPage ? 
+                    'bg-rose-600 border-rose-600 text-white' : 
+                    'border-zinc-700 hover:bg-zinc-800 hover:border-zinc-600'}`;
+                btn.onclick = () => { currentPage = i; render(); };
+                controls.appendChild(btn);
+            }
+        }
+
+        // Modal functions
+        let currentVideoId = null;
+
+        function openModal(videoId) {
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+
+            currentVideoId = videoId;
+            document.getElementById('modal-title').textContent = video.title;
+            document.getElementById('modal-iframe').src = video.embed;
+            document.getElementById('modal-direct').href = video.direct || video.embed;
+            
+            const modal = document.getElementById('video-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('modal-iframe');
+            
+            // Stop video by clearing src
+            iframe.src = '';
+            
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+
+        // Keyboard support (ESC to close)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('video-modal');
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Events
+        document.getElementById('search').addEventListener('input', () => { currentPage = 1; render(); });
+        document.getElementById('sort').addEventListener('change', () => { currentPage = 1; render(); });
+
+        // Re-render on resize (for responsive grid only, no more mode switching)
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                render();
+            }, 150);
+        });
+
+        // Initial load
+        loadVideos();
+    </script>
+</body>
+</html>
